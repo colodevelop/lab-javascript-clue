@@ -84,11 +84,117 @@ name: Guest House
 name: Patio
 */
 
+function Person(firstName, lastName, age, occupation, description) {
+  this.firstName = firstName;
+  this.lastName = lastName;
+  this.age = age;
+  this.occupation = occupation;
+  this.description = description;
+}
+
+const mrGreen = new Person(
+  "Jacob",
+  "Green",
+  45,
+  "Entrepreneur",
+  "He has a lot of connections"
+);
+
+const mrOrchid = new Person(
+  "Doctor",
+  "Orchid",
+  26,
+  "Scientist",
+  "PhD in plant toxicology. Adopted daugher of Mr.Boddy"
+);
+
+const mrPlum = new Person(
+  "Victor",
+  "Plum",
+  22,
+  "Designer",
+  "Billionaire video game designer"
+);
+
+const msScarlet = new Person(
+  "Kasandra",
+  "Scarlet",
+  31,
+  "Actor",
+  "She is an A-list movie star with a dark past"
+);
+
+function weapon(weapon, weight) {
+  this.weapon = weapon;
+  this.weight = weight;
+}
+
+const rope = new weapon("rope", 10);
+const knife = new weapon("knife", 8);
+const candlestick = new weapon("candlestick", 2);
+const dumbell = new weapon("dumbell", 30);
+const poison = new weapon("poison", 2);
+const axe = new weapon("axe", 15);
+
+function Room(room) {
+  this.room = room;
+}
+
+const dinning = new Room("Dinning room");
+const conservatory = new Room("Conservatory");
+const kitchen = new Room("Kitchen");
+const study = new Room("Study");
+const library = new Room("Library");
+const billiard = new Room("Billiard Room");
+const lounge = new Room("lounge");
+
 // Characters Collection
 var charactersArray = [];
+
+charactersArray.push(mrGreen, mrOrchid, mrPlum, msScarlet);
 
 // Rooms' Collection
 var roomsArray = [];
 
+roomsArray.push(
+  dinning,
+  conservatory,
+  kitchen,
+  study,
+  library,
+  billiard,
+  lounge
+);
+
 // Weapons Collection
 var weaponsArray = [];
+weaponsArray.push(rope, knife, candlestick, dumbell, poison, axe);
+
+const cluedoGame = {
+  misteryEnvelope: [],
+
+  randomSelector: function(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  },
+
+  pickMistery: function(arr, arr2, arr3) {
+    var fullName = this.randomSelector(arr);
+
+    var firstName = fullName.firstName;
+    var lastName = fullName.lastName;
+    var weapon = this.randomSelector(arr2).weapon;
+    var room = this.randomSelector(arr3).room;
+
+    this.misteryEnvelope.push(firstName, lastName, weapon, room);
+    return this.misteryEnvelope;
+  },
+
+  revealMistery: function(arr) {
+    this.pickMistery(charactersArray, weaponsArray, roomsArray);
+    return `${arr[0]} ${arr[1]} killed Mr.Boddy using the ${arr[2]} in the ${
+      arr[3]
+    }!!!`;
+  }
+};
+
+console.log(cluedoGame.revealMistery(cluedoGame.misteryEnvelope));
